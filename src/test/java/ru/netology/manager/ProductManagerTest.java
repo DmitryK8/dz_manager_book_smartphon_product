@@ -22,7 +22,6 @@ class ProductManagerTest {
 
     @Test
     public void shouldSave1Book() {
-
         manager.add(goodBook8);
 
         Product[] expected = new Product[]{goodBook8};
@@ -30,6 +29,16 @@ class ProductManagerTest {
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void shouldSave3Book() {
+        manager.add(book26);
+        manager.add(book53);
+        manager.add(book35);
+
+        Product[] expected = new Product[]{book35, book53, book26};
+        Product[] actual = manager.getAll();
+        assertArrayEquals(expected, actual);
+    }
 
     @Test
     void shouldSearch() {
@@ -82,7 +91,7 @@ class ProductManagerTest {
     }
 
     @Test
-    void shouldSearchBrand() {
+    void shouldSearchByBrand() {
         String textForSearch = "Note 20";
 
         manager.add(samsungN);
