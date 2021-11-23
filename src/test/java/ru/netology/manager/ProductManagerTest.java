@@ -5,7 +5,7 @@ import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class ProductManagerTest {
     private ProductManager manager = new ProductManager();
@@ -19,6 +19,20 @@ class ProductManagerTest {
     private Smartphone sony = new Smartphone(26, "xs", 12000, "Sony");
     private Smartphone samsungS = new Smartphone(35, "Galaxy S7Edge", 15000, "Samsung");
     private Product product = new Product(8, "Xiaomi", 24000);
+
+
+    @Test
+    void shouldMultipleItemsFitTheSearchQuery() {
+        String textForSearch = "Galaxy";
+        manager.add(samsungN);
+        manager.add(sony);
+        manager.add(samsungS);
+
+        Product[] expected = new Product[]{samsungN, samsungS};
+        Product[] actual = manager.searchByText(textForSearch);
+        assertArrayEquals(expected, actual);
+
+    }
 
     @Test
     public void shouldSave1Book() {
@@ -35,7 +49,7 @@ class ProductManagerTest {
         manager.add(book53);
         manager.add(book35);
 
-        Product[] expected = new Product[]{book35, book53, book26};
+        Product[] expected = new Product[]{book26, book53, book35};
         Product[] actual = manager.getAll();
         assertArrayEquals(expected, actual);
     }
@@ -43,33 +57,24 @@ class ProductManagerTest {
     @Test
     void shouldSearch() {
         String textForSearch = "Book26";
-
         manager.add(book26);
         manager.add(book53);
 
-        manager.searchById(textForSearch);
-
         Product[] expected = new Product[]{book26,};
-        Product[] actual = manager.searchById(textForSearch);
+        Product[] actual = manager.searchByText(textForSearch);
         assertArrayEquals(expected, actual);
-
 
     }
 
     @Test
     void shouldSearchAuthor() {
         String textForSearch = "Сидоров";
-
-
         manager.add(book35);
         manager.add(book53);
 
-        manager.searchById(textForSearch);
-
         Product[] expected = new Product[]{book35};
-        Product[] actual = manager.searchById(textForSearch);
+        Product[] actual = manager.searchByText(textForSearch);
         assertArrayEquals(expected, actual);
-
 
     }
 
@@ -81,64 +86,49 @@ class ProductManagerTest {
         manager.add(sony);
         manager.add(samsungS);
 
-        manager.searchById(textForSearch);
-
         Product[] expected = new Product[]{sony};
-        Product[] actual = manager.searchById(textForSearch);
+        Product[] actual = manager.searchByText(textForSearch);
         assertArrayEquals(expected, actual);
-
 
     }
 
+
     @Test
     void shouldSearchByBrand() {
-        String textForSearch = "Note 20";
-
+        String textForSearch = "Note";
         manager.add(samsungN);
         manager.add(sony);
         manager.add(samsungS);
 
-        manager.searchById(textForSearch);
-
         Product[] expected = new Product[]{samsungN};
-        Product[] actual = manager.searchById(textForSearch);
+        Product[] actual = manager.searchByText(textForSearch);
         assertArrayEquals(expected, actual);
-
 
     }
 
     @Test
     void shouldSearchByAuthorInSmartphoneEndBooks() {
         String textForSearch = "Вася";
-
         manager.add(book53);
         manager.add(samsungN);
         manager.add(samsungS);
 
-        manager.searchById(textForSearch);
-
         Product[] expected = new Product[]{book53};
-        Product[] actual = manager.searchById(textForSearch);
+        Product[] actual = manager.searchByText(textForSearch);
         assertArrayEquals(expected, actual);
-
 
     }
 
     @Test
     void shouldSearchByBrandIsNot() {
         String textForSearch = "Xiaomi";
-
-
         manager.add(samsungN);
         manager.add(sony);
         manager.add(product);
 
-        manager.searchById(textForSearch);
-
         Product[] expected = new Product[]{};
-        Product[] actual = manager.searchById(textForSearch);
+        Product[] actual = manager.searchByText(textForSearch);
         assertArrayEquals(expected, actual);
-
 
     }
 }

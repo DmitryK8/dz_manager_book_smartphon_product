@@ -10,33 +10,25 @@ public class ProductManager {
     private Product[] products = new Product[0];
 
 
-    public ProductManager(ProductRepository repository) { this.repository = repository;
-    }
     public ProductManager() {
 
     }
 
-    public void add(Product  product) {
+    public void add(Product product) {
         repository.save(product);
     }
 
     public Product[] getAll() {
-        Product[] products = repository.findAll();
-        Product[] result = new Product[products.length];
-        for (int i =0; i < result.length; i++) {
-            int index = products.length - i - 1;
-            result[i] = products[index];
-        }
-        return result;
+        return repository.findAll();
 
     }
 
-    public Product[] searchById(String text) {
+    public Product[] searchByText(String text) {
         Product[] result = new Product[0];
-        for (Product product: repository.findAll()) {
+        for (Product product : repository.findAll()) {
             if (matches(product, text)) {
                 Product[] tmp = new Product[result.length + 1];
-                System.arraycopy(products, 0, tmp, 0, result.length);
+                System.arraycopy(result, 0, tmp, 0, result.length);
                 tmp[tmp.length - 1] = product;
                 result = tmp;
             }
@@ -44,6 +36,7 @@ public class ProductManager {
         return result;
 
     }
+
     public boolean matches(Product product, String search) {
         if (product instanceof Book) {
             Book book = (Book) product;
@@ -56,9 +49,9 @@ public class ProductManager {
 
             return false;
         }
-
         if (product instanceof Smartphone) {
             Smartphone smartphone = (Smartphone) product;
+
             if (smartphone.getProduction().contains(search)) {
                 return true;
             }

@@ -27,12 +27,6 @@
             <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <version>4.0.0</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -51,14 +45,14 @@
                 <version>0.8.5</version>
                 <executions>
                     <execution>
-                        <id>prepare-agent-888</id>
+                        <id>prepare-agent- $$+Дмитрий**888**</id>
                         <!--                        <phase>initialize</phase>-->
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>report88888888</id>
+                        <id>report $$+Дмитрий**88888888**</id>
                         <!--                        <phase>verify</phase>-->
                         <goals>
                             <goal>report</goal>
